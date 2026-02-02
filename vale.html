@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>for kami</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+        body {
+            background-color: #fff0f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+        .heart-wrap {
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
+            text-align: center;
+            width: 85%;
+            max-width: 320px;
+            z-index: 10;
+            position: relative;
+        }
+        #yesBtn { 
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 50;
+        }
+        #noBtn {
+            z-index: 40;
+        }
+        .hidden { display: none !important; }
+        .gif-box {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+        .gif-box img {
+            height: 100%;
+            width: auto;
+            margin: 0 auto;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="question-section" class="heart-wrap">
+        <div class="gif-box">
+            <img id="main-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Y2ZndidXN3MGp3eXNqZzR4cXNqZzR4cXNqZzR4cXNqZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="cute cat">
+        </div>
+        
+        <h1 class="text-2xl font-semibold text-pink-500 mb-1 lowercase">kami ♡</h1>
+        <p class="text-gray-400 mb-8 lowercase">will you be my valentine? ♡</p>
+        
+        <div class="flex flex-col items-center gap-4 relative">
+            <button id="yesBtn" onclick="handleYes()" class="bg-green-400 text-white font-semibold py-3 px-10 rounded-2xl w-full lowercase shadow-md">
+                yes
+            </button>
+            <button id="noBtn" onclick="handleNo()" class="bg-pink-100 text-pink-400 font-medium py-2 px-6 rounded-xl text-sm lowercase transition-all">
+                no
+            </button>
+        </div>
+        
+        <p class="mt-8 text-pink-200 text-xs lowercase">from nahool</p>
+    </div>
+
+    <div id="success-section" class="heart-wrap hidden">
+        <div class="gif-box">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHY5eXJ6eXJ6eXJ6eXJ6eXJ6eXJ6eXJ6eXJ6eXJ6eXJ6eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/26FLdmIp6wJr91JAI/giphy.gif" alt="happy cat">
+        </div>
+        <h1 class="text-3xl font-bold text-pink-500 mb-2 lowercase">YAAAAAYYYY ♡</h1>
+        <p class="text-gray-500 lowercase">im the luckiest guy alive<br>love you kami</p>
+        <p class="mt-6 text-pink-300">⎯⎯ nahool</p>
+    </div>
+
+    <script>
+        let yesScale = 1;
+        let noClickCount = 0;
+
+        function handleNo() {
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const mainGif = document.getElementById('main-gif');
+
+            noClickCount++;
+
+
+            yesScale += 0.2;
+            yesBtn.style.transform = `scale(${yesScale})`;
+
+
+            const messages = [
+                "are you sure?",
+                "really sure?",
+                "kami pweaseee..",
+                "nahool will be very very sad pwease",
+                "last chance!"
+            ];
+
+            if (noClickCount <= messages.length) {
+                noBtn.innerText = messages[noClickCount - 1];
+            }
+
+
+            if (noClickCount >= 5) {
+                yesBtn.style.transform = `scale(${yesScale * 2})`;
+                yesBtn.style.position = "absolute";
+                yesBtn.style.width = "150%";
+                yesBtn.style.height = "150%";
+                yesBtn.innerText = "YES OFCOURSE HEHEHHE! ♡";
+                noBtn.style.opacity = "0"; // Hide the No button under the Yes explosion
+            }
+
+            // Update GIF to a sad one
+            if (noClickCount === 2) {
+                mainGif.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZm5uM2E3Ymk1MG1rbGIzcHZ0ZTNlODhsdWk5cmU5eW13MGk4M21keCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/P53TSsopKicrm/giphy.gif";
+            }
+        }
+
+        function handleYes() {
+            document.getElementById('question-section').classList.add('hidden');
+            document.getElementById('success-section').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
